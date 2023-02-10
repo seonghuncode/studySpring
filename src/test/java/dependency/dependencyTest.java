@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ysh.studySpring.dependency.Coding;
+import com.ysh.studySpring.dependency.Restaurant;
 
 import lombok.extern.log4j.Log4j;
 
@@ -16,14 +17,29 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml") //rootContext 위치를 알려주어야 한다.
 @Log4j //해당 객체를 통해 에러, 자동줄바꿈등 로그 객체를 출력하여 보기 위해 써주어야 한다.
 public class dependencyTest {
+//	@Autowired
+//	private Coding coding; //Autowired를 통해 Coding이 어디있는지 자동으로 알려준다.
+//	
+//	@Test //사용하면 단위 테스트로 인식이 된다.
+//	public void checkDependencyInjection() {
+//		log.info("---------------------------");
+//		log.info("coding :" + coding);
+//		log.info("computer:" + coding.getComputer());
+//		log.info("---------------------------");
+//	}
+	
 	@Autowired
-	private Coding coding; //Autowired를 통해 Coding이 어디있는지 자동으로 알려준다.
+	private Restaurant restarant;
 	
 	@Test //사용하면 단위 테스트로 인식이 된다.
 	public void checkDependencyInjection() {
 		log.info("---------------------------");
-		log.info("coding :" + coding);
-		log.info("computer:" + coding.getComputer());
+		log.info("restarant :" + restarant);
+		log.info("chef:" + restarant.getChef());
 		log.info("---------------------------");
 	}
+	
+	
+	
+	
 }
