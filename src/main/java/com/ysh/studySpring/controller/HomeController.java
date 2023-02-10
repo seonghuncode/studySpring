@@ -1,4 +1,4 @@
-package com.ysh.studySpring;
+package com.ysh.studySpring.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
