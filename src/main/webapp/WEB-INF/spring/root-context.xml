@@ -9,8 +9,31 @@
 	
 	
 	<!-- 해당 패키지에서 component 어노테이션 스캔이 가능해진다. -->
+	<!-- Component어노테이션이 붙어있는 것을 참조해서 메모리에 올려주기 위해ㅑ 경로를 알려주는 작업??-->
 	<context:component-scan base-package="com.ysh.studySpring.dependency"></context:component-scan>
 	
+	
+	<!-- hikariConfig라는 객체를 만드는 과정 -->
+	<!-- xml에는 서버쪽으로 데이터를 전달하기 위해 작성하는 것? -->
+	<!-- XML에서 객체를 만드는 방법 (자바에서 만들수도 있지만 xml에서 만드는 것이 더 단단한다) -->
+	<!-- com.zaxxer.hikari.HikariConfig 객체를 hikariConfig라는 이름으로 사용하겠다 -->
+	<!-- hikari는 라이브러리로 xml에서도 의존성 주입 필요 -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<!-- class안에 값(필드)를 넣어줄때는 property를 사용한다 -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+		<property name="username" value="hr"/>
+		<property name="password" value="hr"/>   <!-- value에 직성히면 해당 값으로 변경된다 -->
+	</bean>
+	
+	
+	<!-- 위에서 만든 객체를 datasource라는 객체에 전달을 해주어야 사용이 가능한다. -->
+	<!-- destroy=method="close" ==> 해당 커넥션 객체를 반납한다는 의미 (중요 X) -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	<!-- 사용할 생성자를 불러와 해당 생성자에 사용할 값을 넣어주는 작업  (생성자를 불러오는 것 : arg, reg:참조)-->
+	<constructor-arg ref="hikariConfig"/>
+		
+	</bean>
 	
 </beans>
 
