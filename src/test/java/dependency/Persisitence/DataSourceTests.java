@@ -1,12 +1,13 @@
 package dependency.Persisitence;
 
 import static org.junit.Assert.fail;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 
 import java.sql.Connection;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,34 @@ public class DataSourceTests {
 	@Autowired
 	private DataSource dataSource;
 	
+	@Autowired
+	private SqlSessionFactory sqlSessionFactory;
+	
+//	@Test
+//	public void testConnection() {
+//		try(Connection connection = dataSource.getConnection()){
+//			log.info(connection);
+//		}catch(Exception e) {
+//			fail(e.getMessage());
+//		}
+//	}
+	
+	
+	//sqlSessionFactory를 통해 connection객체를  가지고 오는지 확인하는 테스트(mapper쪽에서 기본적인 세팅 완료)
 	@Test
 	public void testConnection() {
-		try(Connection connection = dataSource.getConnection()){
-			log.info(connection);
+		try
+		(		//true를 사용해야 auto commit이 된다
+			SqlSession sqlSession = sqlSessionFactory.openSession(true);
+				Connection connection = sqlSession.getConnection();
+		){
+		 log.info(sqlSession);
+		 log.info(connection);
 		}catch(Exception e) {
 			fail(e.getMessage());
 		}
 	}
+	
+	
 
 }

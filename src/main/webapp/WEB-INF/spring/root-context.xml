@@ -2,7 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
@@ -32,8 +34,19 @@
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 	<!-- 사용할 생성자를 불러와 해당 생성자에 사용할 값을 넣어주는 작업  (생성자를 불러오는 것 : arg, reg:참조)-->
 	<constructor-arg ref="hikariConfig"/>
-		
 	</bean>
+	
+	
+	<!-- sqlsession factroy 객체를 만드는 과정 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- Maper어노테이션을 사용하기 위해 스캔이 가능하도록 하는 코드 / namespaces -> mybatis-spring체크 -->
+	<!-- com.ysh.mapper에 있는 mapper 어노테이션을 스캔가능하다 -->
+	<mybatis-spring:scan base-package="com.ysh.studySpring.mapper" />
+	
+	
 	
 </beans>
 
