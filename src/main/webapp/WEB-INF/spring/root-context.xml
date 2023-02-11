@@ -22,8 +22,11 @@
 	<!-- hikari는 라이브러리로 xml에서도 의존성 주입 필요 -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<!-- class안에 값(필드)를 넣어줄때는 property를 사용한다 -->
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+	<!-- 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"/>     -->
+		<!--기존과 차이점 driver와 그냥 연결되었던것에 반해 log를 통해 연결이 된다  -> 콘솔에 테이블 형식으로 보기 좋게 보여준다.-->
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" /> <!--  ?로 보여주는 것을 데이터러 보여주기 위해 수정 -->
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"/>  
 		<property name="username" value="hr"/>
 		<property name="password" value="hr"/>   <!-- value에 직성히면 해당 값으로 변경된다 -->
 	</bean>
@@ -40,6 +43,9 @@
 	<!-- sqlsession factroy 객체를 만드는 과정 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
+		<!-- 위치를 정하는 코드 / 경로에 mappers라는 폴더를 만드는데 어떤 하위경로든 Mapper.xml로 끝나는 파일을 찾아라 -->
+		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml" />
+		<property name="configLocation" value="classpath:config/config.xml"/>
 	</bean>
 	
 	<!-- Maper어노테이션을 사용하기 위해 스캔이 가능하도록 하는 코드 / namespaces -> mybatis-spring체크 -->

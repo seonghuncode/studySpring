@@ -1,0 +1,8 @@
+log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+//왼쪽을 오른쪽 으로 이름을 변경한다.
+
+
+
+//log라이브러리의 설정을 여기서 바꿀 예정
+//라이브러리가 위의 이름을 일고 실행 된다.
+//ctrl + n -> general -> untyped text로 만드낟
