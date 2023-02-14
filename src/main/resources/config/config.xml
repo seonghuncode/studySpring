@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0/EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<!-- TestMapper.xml에서resultType="com.ysh.studySpring.domain.vo.TestVo"너무 길어서 별칭을 주는 작업 -->
+	<typeAliases>
+		<typeAlias type="com.ysh.studySpring.domain.vo.testVo" alias="testVo"/>
+	</typeAliases>
 </configuration>
 

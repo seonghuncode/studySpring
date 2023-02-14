@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 여기서 작성된 xml코드는 namespace와 연결이 된다. -->
+<mapper namespace="com.ysh.studySpring.mapper.TestMapper"> <!-- 연결할 경로를 알려주어야 한다 -->
+	<!-- <select id="getList" resultType="com.ysh.studySpring.domain.vo.TestVo">  -->
+	<select id="getList" resultType="TestVo">  <!-- config.xml에서 alias설정시 사용 가능 -->
+		SELECT ID, NAME TBL_TEST
+	</select> <!-- getList = interface이름과 동일 하게 -->
+</mapper>
